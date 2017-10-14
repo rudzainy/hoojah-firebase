@@ -2,19 +2,46 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import Navbar from './components/navbar'
+import { Grid, Row, Col, Clearfix } from 'react-bootstrap'
+import OpinionShow from './components/opinionShow'
+import OpinionIndex from './components/opinionIndex'
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentPage: "opinionIndex",
+      data: {
+        opinions: {
+          a: {
+            title: "title1"
+          },
+          b: {
+            title: "title2"
+          }
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+
+    // this.setState({
+    //   data:
+    // })
+  }
+
+  updateCurrentPage(pageName) {
+    this.setState({ currentPage: pageName })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <Navbar />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        { this.state.currentPage == "opinionIndex" ? <OpinionIndex data={ this.state.data } updateCurrentPage={ this.updateCurrentPage } /> : <OpinionShow /> }
       </div>
     );
   }
